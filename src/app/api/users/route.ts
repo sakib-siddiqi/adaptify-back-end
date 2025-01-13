@@ -1,7 +1,7 @@
 import { supabase } from "@/config/supabase.config";
-import { NextApiRequest } from "next";
 
-export async function GET(req: NextApiRequest) {
+
+export async function GET(req: any) {
     const query = req?.query;
     const page = Number(query?.page) || 1;
     const limit = Number(query?.limit) || 50;

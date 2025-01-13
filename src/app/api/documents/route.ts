@@ -1,7 +1,8 @@
 import DocumentService from "@/services/documents.service";
-import { NextApiRequest } from "next";
 
-export async function GET(req: NextApiRequest) {
+import { NextRequest } from "next/server";
+
+export async function GET(req: any) {
     try {
         const query = req.query;
         const page = Number(query?.page) || 1;

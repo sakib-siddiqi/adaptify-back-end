@@ -1,7 +1,7 @@
 import { supabase } from "@/config/supabase.config";
 import DocumentService from "@/services/documents.service";
 import { PostgrestError } from "@supabase/supabase-js";
-import { NextApiRequest, PageConfig, } from "next"
+import { any, PageConfig, } from "next"
 
 export const config: PageConfig = {
     api: {
@@ -18,7 +18,7 @@ type Props = {
         id: string
     }>
 }
-export async function GET(req: NextApiRequest, props: Props) {
+export async function GET(req: any, props: Props) {
     try {
         const id = (await props?.params)?.id;
         const data = await DocumentService.getById(String(id || ''));
