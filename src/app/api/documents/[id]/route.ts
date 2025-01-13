@@ -1,7 +1,7 @@
 import { supabase } from "@/config/supabase.config";
 import DocumentService from "@/services/documents.service";
 import { PostgrestError } from "@supabase/supabase-js";
-import { any, PageConfig, } from "next"
+import { PageConfig, } from "next"
 
 export const config: PageConfig = {
     api: {
@@ -9,18 +9,17 @@ export const config: PageConfig = {
             sizeLimit: '5mb',
         },
     },
-    // Specifies the maximum allowed duration for this function to execute (in seconds)
     maxDuration: 10,
 }
-
 type Props = {
-    params: Promise<{
-        id: string
-    }>
-}
-export async function GET(req: any, props: Props) {
+    params: {
+        id: string;
+    };
+};
+
+export async function GET(req: Request,  { params }: any) {
+    const { id } = params;
     try {
-        const id = (await props?.params)?.id;
         const data = await DocumentService.getById(String(id || ''));
         return Response.json({
             data: data
@@ -33,10 +32,10 @@ export async function GET(req: any, props: Props) {
         })
     }
 }
-export async function PATCH(req: Request, props: Props) {
+export async function PATCH(req: Request, { params }: any) {
+    const { id } = params;
     try {
         const body = await req.json();
-        const id = (await props?.params)?.id;
         const updateData: { [key: string]: string } = {};
         if (body?.status) updateData.status = body.status;
         const data = await DocumentService.updateOne(String(id), updateData);

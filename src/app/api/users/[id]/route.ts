@@ -3,17 +3,12 @@ import { AuthError } from "@supabase/supabase-js";
 import { NextApiResponse } from "next";
 import { NextRequest } from "next/server"
 
-type Props = {
-    params: {
-        id: string
-    }
-}
-export async function GET(request: NextRequest, props: Props) {
+export async function GET(request: NextRequest, {params}: any) {
     try {
-        const { data, error } = await supabase.auth.admin.getUserById(props?.params?.id)
+        const { data, error } = await supabase.auth.admin.getUserById(params?.id)
         if (error) throw error;
         return Response.json({
-            id: props?.params?.id,
+            id: params?.id,
             data: data?.user,
         })
     } catch (error: AuthError | any) {

@@ -3,7 +3,6 @@ import AuthService from "@/services/auth.service";
 import DocumentService from "@/services/documents.service";
 import { PostgrestError } from "@supabase/supabase-js";
 import createHttpError from "http-errors";
-import { any } from "next"
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {

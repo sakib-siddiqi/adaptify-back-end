@@ -3,15 +3,10 @@ import { NextResponse } from 'next/server';
 import puppeteer from 'puppeteer';
 
 
-type Props = {
-    params: {
-        id: string
-    }
-}
 
-export async function GET(req:any, props : Props) {
+export async function GET(req:any, {params} : any) {
     try {
-        const payment = await PaymentService.getPaymentByID(Number(props?.params?.id));
+        const payment = await PaymentService.getPaymentByID(Number(params.id));
         if(!payment?.id) return;
         const browser = await puppeteer.launch();
         const page = await browser.newPage();

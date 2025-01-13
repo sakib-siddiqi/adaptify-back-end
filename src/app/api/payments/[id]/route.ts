@@ -1,13 +1,9 @@
 import PaymentService from "@/services/payment.service";
 
-type Props = {
-    params: Promise<{
-        id: string
-    }>
-}
-export async function PATCH(req: Request, props: Props) {
+
+export async function PATCH(req: Request, {params}: any) {
     try {
-        const id = (await props?.params)?.id;
+        const id = params?.id;
         const body = await req.json();
         const result = await PaymentService.updatePayment(Number(id),body);
         return Response.json(result);
